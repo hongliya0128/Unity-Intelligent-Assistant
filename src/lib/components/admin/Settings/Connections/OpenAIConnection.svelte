@@ -45,9 +45,7 @@
 <div class="flex w-full gap-2 items-center">
 	<Tooltip
 		className="w-full relative"
-		content={$i18n.t(`WebUI will make requests to "{{url}}/chat/completions"`, {
-			url
-		})}
+		content={`Open WebUI 将通过 OpenAI 兼容方式请求 ${url}/chat/completions`}
 		placement="top-start"
 	>
 		{#if !(config?.enable ?? true)}

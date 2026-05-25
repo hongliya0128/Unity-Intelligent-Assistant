@@ -225,8 +225,23 @@
 
 				<div class="my-2">
 					<div class="mt-2 space-y-2">
+						<div class="rounded-2xl border border-cyan-200 bg-cyan-50/70 px-4 py-3 text-xs leading-6 text-slate-600 dark:border-cyan-900/60 dark:bg-cyan-950/20 dark:text-slate-300">
+							<div class="font-medium text-cyan-700 dark:text-cyan-300">
+								Dify 工作流接口配置
+							</div>
+							<div class="mt-1">
+								在这里填写 Dify 适配接口的 <code>API Base URL</code> 和 <code>API Key</code>，
+								用于把 Open WebUI 挂到你们的后端工作流。
+							</div>
+							<div class="mt-1">
+								注意：Open WebUI 这里走的是 <code>/chat/completions</code> 调用链。如果你手上只有
+								Dify 原生的 <code>/chat-messages</code> 或 <code>/completion-messages</code>
+								接口，还需要先准备一个 OpenAI 兼容适配层，不能直接填原始 Dify Service API 地址。
+							</div>
+						</div>
+
 						<div class="flex justify-between items-center text-sm">
-							<div class="  font-medium">{$i18n.t('OpenAI API')}</div>
+							<div class="font-medium">Dify / OpenAI 兼容接口</div>
 
 							<div class="flex items-center">
 								<div class="">
@@ -243,7 +258,7 @@
 						{#if ENABLE_OPENAI_API}
 							<div class="">
 								<div class="flex justify-between items-center">
-									<div class="font-medium text-xs">{$i18n.t('Manage OpenAI API Connections')}</div>
+									<div class="font-medium text-xs">管理 Dify 接口连接</div>
 
 									<Tooltip content={$i18n.t(`Add Connection`)}>
 										<button
@@ -284,6 +299,12 @@
 											}}
 										/>
 									{/each}
+								</div>
+
+								<div class="mt-2 text-xs leading-6 text-gray-500 dark:text-gray-400">
+									推荐填写方式：
+									<code>API Base URL</code> 使用你们 Dify 适配服务的基础地址，
+									<code>API Key</code> 使用对应 Bearer Token。
 								</div>
 							</div>
 						{/if}

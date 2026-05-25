@@ -51,13 +51,16 @@
 </script>
 
 <div class="flex flex-col w-full items-start">
+	<div class="mb-1 ml-1 text-[0.68rem] uppercase tracking-[0.24em] text-cyan-700 dark:text-cyan-400">
+		知识版本
+	</div>
 	{#each selectedModels as selectedModel, selectedModelIdx}
 		<div class="flex w-full max-w-fit">
 			<div class="overflow-hidden w-full">
 				<div class="max-w-full {($settings?.highContrastMode ?? false) ? 'm-1' : 'mr-1'}">
 					<Selector
 						id={`${selectedModelIdx}`}
-						placeholder={$i18n.t('Select a model')}
+						placeholder="选择知识版本"
 						items={$models.map((model) => ({
 							value: model.id,
 							label: model.name,
@@ -72,11 +75,11 @@
 			{#if $user?.role === 'admin' || ($user?.permissions?.chat?.multiple_models ?? true)}
 				{#if selectedModelIdx === 0}
 					<div
-						class="  self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
+						class=" self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
 					>
 						<Tooltip content={$i18n.t('Add Model')}>
 							<button
-								class=" "
+								class=""
 								{disabled}
 								on:click={() => {
 									selectedModels = [...selectedModels, ''];
@@ -98,7 +101,7 @@
 					</div>
 				{:else}
 					<div
-						class="  self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
+						class=" self-center mx-1 disabled:text-gray-600 disabled:hover:text-gray-600 -translate-y-[0.5px]"
 					>
 						<Tooltip content={$i18n.t('Remove Model')}>
 							<button
@@ -128,10 +131,22 @@
 	{/each}
 </div>
 
+<div class="mt-2 ml-1 flex flex-wrap gap-2">
+	<div class="rounded-full border border-cyan-200 bg-cyan-50 px-2.5 py-1 text-[0.72rem] text-cyan-700 dark:border-cyan-900/60 dark:bg-cyan-950/40 dark:text-cyan-300">
+		Unity 2022 LTS
+	</div>
+	<div class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[0.72rem] text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
+		Unity 6
+	</div>
+	<div class="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[0.72rem] text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-300">
+		xLua / toLua
+	</div>
+</div>
+
 {#if showSetDefault}
 	<div
 		class="relative text-left mt-[1px] ml-1 text-[0.7rem] text-gray-600 dark:text-gray-400 font-primary"
 	>
-		<button on:click={saveDefaultModel}> {$i18n.t('Set as default')}</button>
+		<button on:click={saveDefaultModel}>设为默认知识版本</button>
 	</div>
 {/if}

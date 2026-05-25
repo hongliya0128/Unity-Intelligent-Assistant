@@ -62,7 +62,7 @@
 		removeTerminalConnection
 	} from '$lib/utils/connections';
 
-	import { WEBUI_API_BASE_URL, WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
+	import { APP_NAME, WEBUI_API_BASE_URL, WEBUI_BASE_URL, WEBUI_HOSTNAME } from '$lib/constants';
 	import { bestMatchingLanguage, displayFileHandler, getUserTimezone } from '$lib/utils';
 	import { setTextScale } from '$lib/utils/text-scale';
 
@@ -1020,7 +1020,7 @@
 		if (backendConfig) {
 			// Save Backend Status to Store
 			await config.set(backendConfig);
-			await WEBUI_NAME.set(backendConfig.name);
+			await WEBUI_NAME.set(APP_NAME);
 
 			if ($config) {
 				await setupSocket($config.features?.enable_websocket ?? true);
@@ -1039,6 +1039,7 @@
 						await user.set(sessionUser);
 						try {
 							await config.set(await getBackendConfig());
+							await WEBUI_NAME.set(APP_NAME);
 						} catch (error) {
 							console.error('Error refreshing backend config:', error);
 						}

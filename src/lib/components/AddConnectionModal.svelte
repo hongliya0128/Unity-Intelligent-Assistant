@@ -274,6 +274,23 @@
 					}}
 				>
 					<div class="px-1">
+						{#if !ollama && !direct}
+							<div class="mb-3 rounded-2xl border border-cyan-200 bg-cyan-50/70 px-3 py-2 text-xs leading-6 text-slate-600 dark:border-cyan-900/60 dark:bg-cyan-950/20 dark:text-slate-300">
+								<div class="font-medium text-cyan-700 dark:text-cyan-300">
+									Dify 接口填写说明
+								</div>
+								<div class="mt-1">
+									这里建议填写你们的 Dify 适配服务地址，而不是直接填写 Dify 原生
+									<code>/chat-messages</code> 接口。
+								</div>
+								<div class="mt-1">
+									Open WebUI 会按 OpenAI 兼容方式请求
+									<code>/chat/completions</code>，认证方式使用
+									<code>Bearer API Key</code>。
+								</div>
+							</div>
+						{/if}
+
 						{#if !direct}
 							<div class="flex gap-2">
 								<div class="flex w-full justify-between items-center">
@@ -313,7 +330,7 @@
 										class={`w-full text-sm bg-transparent ${($settings?.highContrastMode ?? false) ? 'placeholder:text-gray-700 dark:placeholder:text-gray-100' : 'outline-hidden placeholder:text-gray-300 dark:placeholder:text-gray-700'}`}
 										type="text"
 										bind:value={url}
-										placeholder={$i18n.t('API Base URL')}
+										placeholder={!ollama && !direct ? '例如：http://127.0.0.1:8000/v1' : $i18n.t('API Base URL')}
 										autocomplete="off"
 										list={ollama ? undefined : 'suggestions'}
 										required
@@ -321,6 +338,7 @@
 
 									{#if !ollama}
 										<datalist id="suggestions">
+											<option value="http://127.0.0.1:8000/v1" />
 											<option value="https://api.openai.com/v1" />
 											<option value="https://api.anthropic.com/v1" />
 											<option value="https://generativelanguage.googleapis.com/v1beta/openai" />
@@ -402,7 +420,7 @@
 										{#if auth_type === 'bearer'}
 											<SensitiveInput
 												bind:value={key}
-												placeholder={$i18n.t('API Key')}
+												placeholder={!ollama && !direct ? '输入 Dify 适配接口的 API Key' : $i18n.t('API Key')}
 												required={false}
 											/>
 										{:else if auth_type === 'none'}

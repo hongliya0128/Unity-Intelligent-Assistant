@@ -140,8 +140,8 @@
 
 	const getMenuItemMeta = (id) => {
 		const items = {
-			notes: { label: 'Notes', href: '/notes', iconType: 'note' },
-			workspace: { label: 'Workspace', href: '/workspace', iconType: 'workspace' },
+			notes: { label: '项目笔记', href: '/notes', iconType: 'note' },
+			workspace: { label: '知识工作区', href: '/workspace', iconType: 'workspace' },
 			automations: { label: 'Automations', href: '/automations', iconType: 'automations' },
 			calendar: { label: 'Calendar', href: '/calendar', iconType: 'calendar' },
 			playground: { label: 'Playground', href: '/playground', iconType: 'playground' }
@@ -802,8 +802,8 @@
 					>
 						<div class=" self-center flex items-center justify-center size-9">
 							<img
-								src="{WEBUI_BASE_URL}/static/favicon.png"
-								class="sidebar-new-chat-icon size-6 rounded-full group-hover:hidden"
+								src="/static/unity-assistant-mark.svg"
+								class="sidebar-new-chat-icon size-6 group-hover:hidden"
 								alt=""
 							/>
 
@@ -1011,8 +1011,8 @@
 				>
 					<img
 						crossorigin="anonymous"
-						src="{WEBUI_BASE_URL}/static/favicon.png"
-						class="sidebar-new-chat-icon size-6 rounded-full"
+						src="/static/unity-assistant-mark.svg"
+						class="sidebar-new-chat-icon size-6"
 						alt=""
 					/>
 				</a>
@@ -1020,7 +1020,7 @@
 				<a href="/" class="flex flex-1 px-0.5" on:click={newChatHandler}>
 					<div
 						id="sidebar-webui-name"
-						class=" self-center font-medium text-gray-850 dark:text-white font-primary"
+						class=" self-center font-medium text-gray-850 dark:text-white font-primary line-clamp-1"
 					>
 						{$WEBUI_NAME}
 					</div>
@@ -1076,7 +1076,7 @@
 							</div>
 
 							<div class="flex flex-1 self-center translate-y-[0.5px]">
-								<div class=" self-center text-sm font-primary">{$i18n.t('New Chat')}</div>
+								<div class=" self-center text-sm font-primary">新建诊断</div>
 							</div>
 
 							<HotkeyHint name="newChat" className=" group-hover:visible invisible" />
@@ -1098,7 +1098,7 @@
 							</div>
 
 							<div class="flex flex-1 self-center translate-y-[0.5px]">
-								<div class=" self-center text-sm font-primary">{$i18n.t('Search')}</div>
+								<div class=" self-center text-sm font-primary">搜索会话</div>
 							</div>
 							<HotkeyHint name="search" className=" group-hover:visible invisible" />
 						</button>
@@ -1181,6 +1181,7 @@
 							{/if}
 						{/each}
 					</div>
+
 				</div>
 
 				{#if ($models ?? []).length > 0 && (($settings?.pinnedModels ?? []).length > 0 || $config?.default_pinned_models)}
@@ -1188,7 +1189,7 @@
 						id="sidebar-models"
 						bind:open={showPinnedModels}
 						className="px-2 mt-0.5"
-						name={$i18n.t('Models')}
+						name="知识版本"
 						chevron={false}
 						dragAndDrop={false}
 					>
@@ -1201,7 +1202,7 @@
 						id="sidebar-pinned-notes"
 						bind:open={showPinnedNotes}
 						className="px-2 mt-0.5"
-						name={$i18n.t('Notes')}
+						name="项目笔记"
 						chevron={false}
 						dragAndDrop={false}
 						onAdd={async () => {
@@ -1210,7 +1211,7 @@
 								goto(`/notes/${note.id}`);
 							}
 						}}
-						onAddLabel={$i18n.t('New Note')}
+						onAddLabel="新建笔记"
 					>
 						<div class="mt-0.5 pb-1.5">
 							{#each $pinnedNotes as note (note.id)}
@@ -1295,17 +1296,17 @@
 					</Folder>
 				{/if}
 
-				{#if $config?.features?.enable_folders && ($user?.role === 'admin' || ($user?.permissions?.features?.folders ?? true))}
+				{#if false}
 					<Folder
 						id="sidebar-folders"
 						bind:open={showFolders}
 						className="px-2 mt-0.5"
-						name={$i18n.t('Folders')}
+						name="项目 / 模块"
 						chevron={false}
 						onAdd={() => {
 							showCreateFolderModal = true;
 						}}
-						onAddLabel={$i18n.t('New Folder')}
+						onAddLabel="新建分组"
 						on:drop={async (e) => {
 							const { type, id, item } = e.detail;
 
@@ -1352,7 +1353,7 @@
 				<Folder
 					id="sidebar-chats"
 					className="px-2 mt-0.5"
-					name={$i18n.t('Chats')}
+					name="对话历史"
 					chevron={false}
 					on:change={async (e) => {
 						selectedFolder.set(null);
